@@ -1,0 +1,360 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #0b090a;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.header {
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  z-index: 10;
+  margin: 2rem 0rem;
+  margin-right: 3rem;
+}
+
+.nav_main {
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+}
+
+.nav_link {
+  color: #f3d7d7;
+  text-decoration: none;
+  font-size: clamp(2rem, 3vw, 2rem);
+  font-weight: bold;
+  font-family: "Barrio", system-ui;
+}
+.nav_link:hover {
+  text-decoration: underline;
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 0;
+}
+.hero .hero-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.hero .hero-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(/assets/hero-wrapper.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(0.5) saturate(1.5);
+  z-index: -1;
+}
+.hero .hero-wrapper .grunge-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url(/assets/grunge-overlay.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  mix-blend-mode: multiply;
+  z-index: 10;
+  pointer-events: none;
+}
+.hero .hero-wrapper .halftone-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url(/assets/comic-overlay.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+  z-index: 2;
+  pointer-events: none;
+}
+.hero .hero-wrapper .hero-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  justify-items: center;
+  align-items: center;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+.hero .hero-wrapper .hero-container h1 {
+  font-size: clamp(2rem, 20vw, 20rem);
+  grid-area: 3/3/4/6;
+  text-align: center;
+  color: #ff9e00;
+  font-family: "Barrio", system-ui;
+}
+.hero .hero-wrapper .hero-container h2 {
+  font-size: clamp(2rem, 20vw, 15rem);
+  grid-area: 3/4/4/5;
+  color: #f0fff1;
+  display: flex;
+  justify-self: center;
+  align-self: center;
+  margin-bottom: 1rem;
+  font-family: "League Script", cursive;
+  z-index: 5;
+}
+
+.about {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 0;
+}
+.about .about-wrapper .grunge-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url(/assets/grunge-overlay.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  mix-blend-mode: multiply;
+  z-index: 10;
+  pointer-events: none;
+}
+.about .about-wrapper .about-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  justify-items: center;
+  align-items: center;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+.about .about-wrapper .about-container .cat-doodle {
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  width: 25rem;
+  height: 25rem;
+  background-image: url(/assets/cat-doodle.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: float 4s ease-in-out infinite;
+  z-index: 0;
+  filter: brightness(0) invert(1);
+}
+.about .about-wrapper .about-container .heart-doodle {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  width: 30rem;
+  height: 30rem;
+  background-image: url(/assets/heart-doodle.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: float 4s ease-in-out infinite;
+  z-index: 0;
+  filter: brightness(0) invert(1);
+}
+.about .about-wrapper .about-container .mark-doodle {
+  position: absolute;
+  top: 10%;
+  right: 21%;
+  width: 20rem;
+  height: 20rem;
+  background-image: url(/assets/mark-doodle.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: float 4s ease-in-out infinite;
+  z-index: 0;
+  filter: brightness(0) invert(1);
+}
+.about .about-wrapper .about-container .plane-doodle {
+  position: absolute;
+  top: 10%;
+  right: 60%;
+  width: 20rem;
+  height: 20rem;
+  background-image: url(/assets/plane-doodle.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: float 4s ease-in-out infinite;
+  z-index: 0;
+  filter: brightness(0) invert(1);
+}
+.about .about-wrapper .about-container .smile-doodle {
+  position: absolute;
+  top: 65%;
+  right: 50%;
+  width: 20rem;
+  height: 20rem;
+  background-image: url(/assets/smile-doodle.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: float 4s ease-in-out infinite;
+  z-index: 0;
+  filter: brightness(0) invert(1);
+}
+.about .about-wrapper .about-container h1 {
+  font-size: clamp(10rem, 3vw, 10rem);
+  grid-area: 2/3/3/6;
+  text-align: center;
+  font-family: "Barrio", system-ui;
+  color: #ff9e00;
+  margin: 1rem 1rem;
+  margin-top: 10rem;
+  z-index: 0;
+}
+.about .about-wrapper .about-container h1 span {
+  font-family: "League Script", cursive;
+}
+.about .about-wrapper .about-container p {
+  font-size: clamp(2rem, 3vw, 2rem);
+  grid-area: 3/3/4/6;
+  display: flex;
+  justify-self: center;
+  align-self: start;
+  text-align: center;
+  color: #f3d7d7;
+  font-family: "Barrio", system-ui;
+  margin: 0 0;
+  z-index: 0;
+}
+
+.projects {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 0;
+}
+.projects .projects-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.projects .projects-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(/assets/doodle-bg.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(0.5) saturate(1.5);
+  z-index: 0;
+}
+.projects .projects-wrapper .grunge-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url(/assets/grunge-overlay.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  mix-blend-mode: multiply;
+  z-index: 1;
+  pointer-events: none;
+}
+.projects .projects-wrapper .projects-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem;
+  z-index: 0;
+}
+.projects .projects-wrapper .projects-container h1 {
+  font-size: clamp(5rem, 8vw, 10rem);
+  text-align: center;
+  color: white;
+  font-family: "Barrio", system-ui;
+  margin-bottom: 3rem;
+}
+.projects .projects-wrapper .projects-container h1 span {
+  color: #ff9e00;
+}
+.projects .projects-wrapper .projects-container .projects-grid {
+  display: grid;
+  grid-template-columns: 4fr 5fr 2fr 0fr 0fr 0fr;
+  gap: 0;
+  width: 100%;
+  height: 60vh;
+  cursor: pointer;
+  transition: grid-template-columns 0.4s ease;
+}
+.projects .projects-wrapper .projects-container .projects-grid .project-item {
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+.projects .projects-wrapper .projects-container .projects-grid .project-item.hide {
+  opacity: 0;
+}
+.projects .projects-wrapper .projects-container .projects-grid .project-item figure {
+  width: 100%;
+  height: 100%;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.projects .projects-wrapper .projects-container .projects-grid .project-item figure img {
+  width: 100%;
+  height: 100%;
+  max-height: 50vh;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+.projects .projects-wrapper .projects-container .projects-grid .project-item figure img:hover {
+  transform: scale(1.08) translateY(-10px);
+  border-color: #ff8c00;
+  z-index: 100;
+}
+.projects .projects-wrapper .projects-container .projects-grid .project-item figure img:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+.projects .projects-wrapper .projects-container .projects-grid .project-item figure figcaption {
+  font-family: "Barrio", system-ui;
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  color: white;
+  margin-top: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+.projects .projects-wrapper .projects-container .projects-grid .project-item figure:hover figcaption {
+  color: #ff8c00;
+  transform: translateY(-5px);
+}/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,115 @@
+.about {
+  @include section-base;
+
+  .about-wrapper {
+    .grunge-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: url(/assets/grunge-overlay.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.3;
+      mix-blend-mode: multiply;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .about-container {
+      @include container-grid;
+
+      .cat-doodle {
+        position: absolute;
+        top: 30%;
+        left: 10%;
+        width: 25rem;
+        height: 25rem;
+        background-image: url(/assets/cat-doodle.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        animation: float 4s ease-in-out infinite;
+        z-index: 0;
+        filter: brightness(0) invert(1);
+      }
+
+      .heart-doodle {
+        position: absolute;
+        top: 50%;
+        right: 5%;
+        width: 30rem;
+        height: 30rem;
+        background-image: url(/assets/heart-doodle.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        animation: float 4s ease-in-out infinite;
+        z-index: 0;
+        filter: brightness(0) invert(1);
+      }
+      .mark-doodle {
+        position: absolute;
+        top: 10%;
+        right: 21%;
+        width: 20rem;
+        height: 20rem;
+        background-image: url(/assets/mark-doodle.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        animation: float 4s ease-in-out infinite;
+        z-index: 0;
+        filter: brightness(0) invert(1);
+      }
+      .plane-doodle {
+        position: absolute;
+        top: 10%;
+        right: 60%;
+        width: 20rem;
+        height: 20rem;
+        background-image: url(/assets/plane-doodle.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        animation: float 4s ease-in-out infinite;
+        z-index: 0;
+        filter: brightness(0) invert(1);
+      }
+      .smile-doodle {
+        position: absolute;
+        top: 65%;
+        right: 50%;
+        width: 20rem;
+        height: 20rem;
+        background-image: url(/assets/smile-doodle.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        animation: float 4s ease-in-out infinite;
+        z-index: 0;
+        filter: brightness(0) invert(1);
+      }
+
+      h1 {
+        font-size: clamp(10rem, 3vw, 10rem);
+        grid-area: 2/3/3/6;
+        text-align: center;
+        font-family: "Barrio", system-ui;
+        color: $h1-text;
+        margin: 1rem 1rem;
+        margin-top: 10rem;
+        z-index: 0;
+      }
+      h1 span {
+        font-family: "League Script", cursive;
+      }
+
+      p {
+        font-size: clamp(2rem, 3vw, 2rem);
+        grid-area: 3/3/4/6;
+        display: flex;
+        justify-self: center;
+        align-self: start;
+        text-align: center;
+        color: $nav-text;
+        font-family: "Barrio", system-ui;
+        margin: 0 0;
+        z-index: 0;
+      }
+    }
+  }
+}

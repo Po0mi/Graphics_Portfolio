@@ -1,0 +1,124 @@
+.projects {
+  @include section-base;
+
+  .projects-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url(/assets/doodle-bg.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: brightness(0.5) saturate(1.5);
+      z-index: 0;
+    }
+
+    .grunge-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: url(/assets/grunge-overlay.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.3;
+      mix-blend-mode: multiply;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .projects-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3rem;
+      z-index: 0;
+
+      h1 {
+        font-size: clamp(5rem, 8vw, 10rem);
+        text-align: center;
+        color: white;
+        font-family: "Barrio", system-ui;
+        margin-bottom: 3rem;
+      }
+
+      h1 span {
+        color: $h1-text;
+      }
+
+      // Grid carousel
+      .projects-grid {
+        display: grid;
+        grid-template-columns: 4fr 5fr 2fr 0fr 0fr 0fr;
+        gap: 0;
+        width: 100%;
+        height: 60vh;
+        cursor: pointer;
+        transition: grid-template-columns 0.4s ease;
+
+        .project-item {
+          overflow: hidden;
+          opacity: 1;
+          transition: opacity 0.4s ease;
+
+          &.hide {
+            opacity: 0;
+          }
+
+          figure {
+            width: 100%;
+            height: 100%;
+            padding: 0 0.5rem;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+
+            img {
+              width: 100%;
+              height: 100%;
+              max-height: 50vh;
+              object-fit: contain;
+              border-radius: 0.5rem;
+              transition: all 0.3s ease;
+
+              // Hover effect - pop out
+              &:hover {
+                transform: scale(1.08) translateY(-10px);
+                border-color: #ff8c00; // Orange border on hover
+                z-index: 100;
+              }
+
+              // Click/active effect - quick bounce
+              &:active {
+                transform: scale(0.95);
+                transition: transform 0.1s ease;
+              }
+            }
+
+            figcaption {
+              font-family: "Barrio", system-ui;
+              font-size: clamp(1.2rem, 2vw, 1.8rem);
+              color: white;
+              margin-top: 1rem;
+              text-align: center;
+              transition: all 0.3s ease;
+            }
+
+            // Figcaption also pops on hover
+            &:hover figcaption {
+              color: #ff8c00;
+              transform: translateY(-5px);
+            }
+          }
+        }
+      }
+    }
+  }
+}

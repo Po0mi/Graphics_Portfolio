@@ -1,0 +1,35 @@
+@mixin section-base {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 0;
+}
+
+@mixin container-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  justify-items: center;
+  align-items: center;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+@mixin grunge-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url(/assets/grunge-overlay.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  mix-blend-mode: multiply;
+  z-index: 10;
+  pointer-events: none;
+}

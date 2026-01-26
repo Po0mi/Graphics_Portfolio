@@ -1,0 +1,72 @@
+.hero {
+  @include section-base;
+
+  .hero-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url(/assets/hero-wrapper.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: brightness(0.5) saturate(1.5);
+      z-index: -1;
+    }
+
+    .grunge-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: url(/assets/grunge-overlay.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.3;
+      mix-blend-mode: multiply;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .halftone-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: url(/assets/comic-overlay.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.15;
+      mix-blend-mode: overlay;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-container {
+      @include container-grid;
+      position: relative;
+      z-index: 2;
+
+      h1 {
+        font-size: clamp(2rem, 20vw, 20rem);
+        grid-area: 3/3/4/6;
+        text-align: center;
+        color: $h1-text;
+        font-family: "Barrio", system-ui;
+      }
+
+      h2 {
+        font-size: clamp(2rem, 20vw, 15rem);
+        grid-area: 3/4/4/5;
+        color: $h2-text;
+        display: flex;
+        justify-self: center;
+        align-self: center;
+        margin-bottom: 1rem;
+        font-family: "League Script", cursive;
+        z-index: 5;
+      }
+    }
+  }
+}
