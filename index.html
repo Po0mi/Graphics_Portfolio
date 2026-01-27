@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Graphic PORTFOLIO</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -20,11 +21,15 @@
   </head>
   <body>
     <header class="header">
-      <nav class="nav_main">
+      <button class="burger-menu" id="burger-menu" aria-label="Toggle menu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+      <nav class="nav_main" id="nav-main">
         <a class="nav_link" href="#hero">Home</a>
         <a class="nav_link" href="#about">About</a>
         <a class="nav_link" href="#projects">Projects</a>
-        <a class="nav_link" href="#contacts">Contact </a>
       </nav>
     </header>
     <section class="hero" id="hero">
@@ -34,6 +39,16 @@
         <div class="hero-container">
           <h1>PORTFOLIO</h1>
           <h2>Graphic</h2>
+
+          <!-- Scroll Indicator -->
+          <div class="scroll-indicator">
+            <span class="scroll-text">SCROLL</span>
+            <div class="scroll-arrow">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -46,13 +61,40 @@
           <div class="mark-doodle"></div>
           <div class="plane-doodle"></div>
           <div class="smile-doodle"></div>
+
           <h1>About <span>ME</span></h1>
+
           <p>
             First-year Digital Media student at Central Philippine University. I
             bring ideas to life through creative design—blending aesthetics with
             storytelling to craft visuals that communicate effectively. My goal?
             Designs that leave a lasting impression.
           </p>
+
+          <!-- Social Media Icons -->
+          <div class="social-icons">
+            <a
+              href="https://instagram.com/yourhandle"
+              target="_blank"
+              class="social-link instagram"
+            >
+              <img src="/assets/instagram-1-svgrepo-com.svg" alt="Instagram" />
+            </a>
+            <a
+              href="https://behance.net/yourhandle"
+              target="_blank"
+              class="social-link Discord"
+            >
+              <img src="/assets/discord-v2-svgrepo-com.svg" alt="Discord" />
+            </a>
+            <a
+              href="https://dribbble.com/yourhandle"
+              target="_blank"
+              class="social-link Facebook"
+            >
+              <img src="/assets/facebook-svgrepo-com.svg" alt="Facebook" />
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -62,66 +104,47 @@
         <div class="projects-container">
           <h1>MY <span>WORK</span></h1>
 
-          <div class="projects-grid">
-            <div class="project-item">
-              <figure>
-                <img
-                  src="/assets/projects/DMIA EXPOSURE HEADER.png"
-                  alt="Project 1"
-                />
-                <figcaption>Header</figcaption>
-              </figure>
+          <div class="projects-gallery">
+            <div class="card">
+              <img
+                src="/assets/projects/DMIA EXPOSURE HEADER.png"
+                alt="Header Design"
+              />
+              <div class="card__head">Header Design</div>
             </div>
-            <div class="project-item">
-              <figure>
-                <img src="/assets/projects/Movie Poster.jpg" alt="Project 2" />
-                <figcaption>Movie Poster</figcaption>
-              </figure>
+            <div class="card">
+              <img src="/assets/projects/Movie Poster.jpg" alt="Movie Poster" />
+              <div class="card__head">Movie Poster</div>
             </div>
-            <div class="project-item">
-              <figure>
-                <img
-                  src="/assets/projects/Prelims Posting.jpg"
-                  alt="Project 3"
-                />
-                <figcaption>Poster</figcaption>
-              </figure>
+            <div class="card">
+              <img
+                src="/assets/projects/Prelims Posting.jpg"
+                alt="Event Poster"
+              />
+              <div class="card__head">Event Poster</div>
             </div>
-            <div class="project-item">
-              <figure>
-                <img src="/assets/projects/1.png" alt="Project 4" />
-                <figcaption>Logo Design</figcaption>
-              </figure>
+            <div class="card">
+              <img src="/assets/projects/1.png" alt="Logo Design" />
+              <div class="card__head">Logo Design</div>
             </div>
-            <div class="project-item">
-              <figure>
-                <img
-                  src="/assets/projects/Color Theory - Luxury Perfume.png"
-                  alt="Project 5"
-                />
-                <figcaption>Color Theory</figcaption>
-              </figure>
+            <div class="card">
+              <img
+                src="/assets/projects/Color Theory - Luxury Perfume.png"
+                alt="Color Theory"
+              />
+              <div class="card__head">Color Theory</div>
             </div>
-            <div class="project-item">
-              <figure>
-                <img
-                  src="/assets/projects/Finals Color Composition.jpg"
-                  alt="Project 6"
-                />
-                <figcaption>Packaging</figcaption>
-              </figure>
+            <div class="card">
+              <img
+                src="/assets/projects/Finals Color Composition.jpg"
+                alt="Composition"
+              />
+              <div class="card__head">Composition</div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <section class="contacts" id="contacts">
-      <div class="contacts-wrapper">
-        <div class="contacts-container">
-          <h1>hello</h1>
-        </div>
-      </div>
-    </section>
-    <script src="/js/carousel.js"></script>
+    <script src="/js/main.js"></script>
   </body>
 </html>

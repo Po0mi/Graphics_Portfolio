@@ -14,6 +14,7 @@
       z-index: 10;
       pointer-events: none;
     }
+
     .about-container {
       @include container-grid;
 
@@ -44,6 +45,7 @@
         z-index: 0;
         filter: brightness(0) invert(1);
       }
+
       .mark-doodle {
         position: absolute;
         top: 10%;
@@ -57,6 +59,7 @@
         z-index: 0;
         filter: brightness(0) invert(1);
       }
+
       .plane-doodle {
         position: absolute;
         top: 10%;
@@ -70,6 +73,7 @@
         z-index: 0;
         filter: brightness(0) invert(1);
       }
+
       .smile-doodle {
         position: absolute;
         top: 65%;
@@ -93,9 +97,10 @@
         margin: 1rem 1rem;
         margin-top: 10rem;
         z-index: 0;
-      }
-      h1 span {
-        font-family: "League Script", cursive;
+
+        span {
+          font-family: "League Script", cursive;
+        }
       }
 
       p {
@@ -109,6 +114,254 @@
         font-family: "Barrio", system-ui;
         margin: 0 0;
         z-index: 0;
+      }
+
+      // Social Media Icons
+      .social-icons {
+        grid-area: 4/3/5/6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        margin-top: 2rem;
+        z-index: 0;
+
+        .social-link {
+          width: 4rem;
+          height: 4rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 50%;
+          transition: all 0.3s ease;
+          border: 2px solid transparent;
+
+          img {
+            width: 5rem;
+            height: 5rem;
+            transition: all 0.3s ease;
+          }
+
+          &:hover {
+            background: rgba(255, 140, 0, 0.9);
+            border-color: #ff8c00;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 0.5rem 1.5rem rgba(255, 140, 0, 0.4);
+
+            img {
+              transform: rotate(10deg);
+            }
+          }
+
+          &:active {
+            transform: translateY(0) scale(1);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Float animation
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(5deg);
+  }
+}
+
+// Tablet responsive
+@media (max-width: 1024px) and (min-width: 769px) {
+  .about {
+    .about-wrapper {
+      .about-container {
+        // Smaller doodles on tablet
+        .cat-doodle {
+          width: 15rem;
+          height: 15rem;
+          left: 5%;
+          top: 25%;
+        }
+
+        .heart-doodle {
+          width: 18rem;
+          height: 18rem;
+          right: 3%;
+          top: 45%;
+        }
+
+        .mark-doodle {
+          width: 12rem;
+          height: 12rem;
+          right: 15%;
+        }
+
+        .plane-doodle {
+          width: 12rem;
+          height: 12rem;
+          right: 65%;
+        }
+
+        .smile-doodle {
+          width: 12rem;
+          height: 12rem;
+          right: 55%;
+        }
+
+        h1 {
+          font-size: clamp(7rem, 8vw, 9rem);
+        }
+
+        p {
+          font-size: clamp(1.5rem, 3vw, 1.8rem);
+          grid-area: 3/2/4/7;
+        }
+
+        .social-icons {
+          grid-area: 4/2/5/7;
+        }
+      }
+    }
+  }
+}
+
+// Mobile responsive
+@media (max-width: 768px) {
+  .about {
+    .about-wrapper {
+      .about-container {
+        // Keep doodles but make them smaller and reposition
+        .cat-doodle {
+          width: 8rem;
+          height: 8rem;
+          left: 2%;
+          top: 15%;
+          opacity: 0.5;
+        }
+
+        .heart-doodle {
+          width: 10rem;
+          height: 10rem;
+          right: 2%;
+          top: 20%;
+          opacity: 0.5;
+        }
+
+        .mark-doodle {
+          width: 6rem;
+          height: 6rem;
+          right: 10%;
+          top: 8%;
+          opacity: 0.4;
+        }
+
+        .plane-doodle {
+          width: 7rem;
+          height: 7rem;
+          left: 5%;
+          top: 5%;
+          opacity: 0.4;
+        }
+
+        .smile-doodle {
+          width: 7rem;
+          height: 7rem;
+          right: 5%;
+          top: 70%;
+          opacity: 0.4;
+        }
+
+        h1 {
+          font-size: clamp(5rem, 12vw, 8rem);
+          grid-area: 2/2/3/7;
+          margin-top: 5rem;
+        }
+
+        p {
+          font-size: clamp(1.2rem, 4vw, 1.8rem);
+          grid-area: 3/2/4/7;
+          padding: 0 1rem;
+        }
+
+        .social-icons {
+          grid-area: 4/2/5/7;
+          gap: 1.5rem;
+
+          .social-link {
+            width: 3.5rem;
+            height: 3.5rem;
+
+            img {
+              width: 4rem;
+              height: 4rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Small mobile
+@media (max-width: 480px) {
+  .about {
+    .about-wrapper {
+      .about-container {
+        // Even smaller doodles
+        .cat-doodle {
+          width: 6rem;
+          height: 6rem;
+          left: 1%;
+          opacity: 0.3;
+        }
+
+        .heart-doodle {
+          width: 7rem;
+          height: 7rem;
+          right: 1%;
+          opacity: 0.3;
+        }
+
+        .mark-doodle,
+        .plane-doodle {
+          width: 5rem;
+          height: 5rem;
+          opacity: 0.3;
+        }
+
+        .smile-doodle {
+          width: 5rem;
+          height: 5rem;
+          opacity: 0.3;
+        }
+
+        h1 {
+          font-size: clamp(3.5rem, 10vw, 6rem);
+          margin-top: 3rem;
+        }
+
+        p {
+          font-size: clamp(1rem, 4vw, 1.5rem);
+          padding: 0 0.5rem;
+        }
+
+        .social-icons {
+          gap: 1rem;
+
+          .social-link {
+            width: 3rem;
+            height: 3rem;
+
+            img {
+              width: 3.5rem;
+              height: 3.5rem;
+            }
+          }
+        }
       }
     }
   }

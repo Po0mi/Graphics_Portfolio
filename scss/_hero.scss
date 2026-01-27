@@ -14,6 +14,7 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      background-attachment: fixed;
       filter: brightness(0.5) saturate(1.5);
       z-index: -1;
     }
@@ -30,6 +31,7 @@
       z-index: 10;
       pointer-events: none;
     }
+
     .halftone-overlay {
       position: absolute;
       inset: 0;
@@ -49,15 +51,16 @@
       z-index: 2;
 
       h1 {
-        font-size: clamp(2rem, 20vw, 20rem);
+        font-size: clamp(5rem, 15vw, 20rem);
         grid-area: 3/3/4/6;
         text-align: center;
         color: $h1-text;
         font-family: "Barrio", system-ui;
+        line-height: 0.9;
       }
 
       h2 {
-        font-size: clamp(2rem, 20vw, 15rem);
+        font-size: clamp(3rem, 12vw, 15rem);
         grid-area: 3/4/4/5;
         color: $h2-text;
         display: flex;
@@ -66,6 +69,192 @@
         margin-bottom: 1rem;
         font-family: "League Script", cursive;
         z-index: 5;
+        line-height: 1;
+      }
+    }
+  }
+}
+// Add to your _hero.scss or main styles
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  z-index: 100;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateX(-50%) translateY(-5px);
+
+    .scroll-arrow span {
+      animation-play-state: paused;
+      opacity: 1;
+    }
+  }
+
+  .scroll-text {
+    font-family: "Barrio", system-ui;
+    font-size: 1rem;
+    color: $nav-text;
+    letter-spacing: 0.2em;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .scroll-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+
+    span {
+      display: block;
+      width: 2px;
+      height: 15px;
+      background: #ff8c00;
+      border-radius: 2px;
+      animation: scrollDown 2s ease-in-out infinite;
+
+      &:nth-child(1) {
+        animation-delay: 0s;
+      }
+
+      &:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+
+      &:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+    }
+  }
+}
+
+@keyframes scrollDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+// Mobile responsive
+@media (max-width: 768px) {
+  .scroll-indicator {
+    bottom: 3vh;
+
+    .scroll-text {
+      font-size: 0.8rem;
+    }
+
+    .scroll-arrow span {
+      width: 1.5px;
+      height: 12px;
+    }
+  }
+}
+
+// Small mobile
+@media (max-width: 480px) {
+  .scroll-indicator {
+    bottom: 2vh;
+    gap: 0.5rem;
+
+    .scroll-text {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+    }
+
+    .scroll-arrow {
+      gap: 0.2rem;
+
+      span {
+        width: 1px;
+        height: 10px;
+      }
+    }
+  }
+}
+
+// Tablet responsive
+@media (max-width: 1024px) {
+  .hero {
+    .hero-wrapper {
+      .hero-container {
+        h1 {
+          font-size: clamp(4rem, 12vw, 12rem);
+          grid-area: 3/2/4/7;
+        }
+
+        h2 {
+          font-size: clamp(2.5rem, 10vw, 10rem);
+          grid-area: 3/3/4/6;
+        }
+      }
+    }
+  }
+}
+
+// Mobile responsive
+@media (max-width: 768px) {
+  .hero {
+    .hero-wrapper {
+      .hero-container {
+        h1 {
+          font-size: clamp(3rem, 10vw, 8rem);
+          grid-area: 3/2/4/7;
+          padding: 0 1rem;
+        }
+
+        h2 {
+          font-size: clamp(2rem, 8vw, 6rem);
+          grid-area: 3/2/4/7;
+          margin-top: 8rem;
+        }
+      }
+    }
+  }
+}
+
+// Small mobile
+@media (max-width: 480px) {
+  .hero {
+    .hero-wrapper {
+      .hero-container {
+        h1 {
+          font-size: clamp(2.5rem, 12vw, 6rem);
+          grid-area: 2/2/4/7;
+          padding: 0 0.5rem;
+        }
+
+        h2 {
+          font-size: clamp(1.8rem, 10vw, 4rem);
+          grid-area: 3/2/5/7;
+          margin-top: 6rem;
+        }
       }
     }
   }
