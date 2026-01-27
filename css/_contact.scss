@@ -1,0 +1,66 @@
+.contact {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  scroll-snap-align: start;
+  z-index: 0;
+
+  .contact-wrapper {
+    .grunge-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: url(/assets/grunge-overlay.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.3;
+      mix-blend-mode: multiply;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .contact-container {
+      @include contact-grid;
+      margin-top: 3rem;
+
+      h1 {
+        font-size: clamp(5rem, 5vw, 5rem);
+        grid-area: 3/1/4/8;
+        color: $h1-text;
+        font-family: "Barrio", system-ui;
+      }
+
+      .marquee {
+        display: flex;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        height: 5rem;
+        grid-area: 1/1/2/8;
+      }
+
+      .marquee-content {
+        display: flex;
+        white-space: nowrap;
+        animation: marquee 10s linear infinite;
+      }
+
+      .marquee-content span {
+        font-size: clamp(5rem, 5vw, 5rem);
+        font-weight: bold;
+        color: $h2-text;
+        font-family: "Barrio", system-ui;
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+    }
+  }
+}

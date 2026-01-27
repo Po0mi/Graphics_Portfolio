@@ -303,21 +303,28 @@ doodles.forEach((doodle, index) => {
   });
 });
 
-// // Social icons animation
-// gsap.from(".social-link", {
-//   scrollTrigger: {
-//     trigger: ".social-icons",
-//     start: "top 90%",
-//     toggleActions: "play none none reverse",
-//     once: false,
-//   },
-//   scale: 0,
-//   opacity: 0,
-//   duration: 0.6,
-//   stagger: 0.1,
-//   ease: "back.out(2)",
-// });
+// Social icons animation
+// Set initial state
+gsap.set(".social-link", {
+  scale: 0,
+  opacity: 0,
+});
 
+// Animate on scroll
+gsap.to(".social-link", {
+  scrollTrigger: {
+    trigger: ".social-icons",
+    start: "top 90%",
+    toggleActions: "play none none reverse",
+    once: false,
+  },
+  scale: 1,
+  opacity: 1,
+  y: 0,
+  duration: 0.2,
+  stagger: 0.5,
+  ease: "elastic.out(1, 5)",
+});
 // ======================
 // PROJECTS SECTION ANIMATIONS
 // ======================
@@ -351,3 +358,275 @@ gsap.from(".projects-gallery", {
 });
 
 console.log("🎨 All Animations Loaded");
+
+// ======================
+// CURSOR
+// ======================
+
+const cursor = document.querySelector(".cursor");
+
+let mouseX = 0;
+let mouseY = 0;
+let currentX = 0;
+let currentY = 0;
+const speed = 0.12; // controls stickiness
+
+// Track mouse movement
+window.addEventListener("mousemove", (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+// Animate sticky cursor
+function animate() {
+  currentX += (mouseX - currentX) * speed;
+  currentY += (mouseY - currentY) * speed;
+
+  cursor.style.left = `${currentX}px`;
+  cursor.style.top = `${currentY}px`;
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+// Optional: scale cursor on click
+window.addEventListener("mousedown", () => {
+  cursor.style.transform = "translate(-50%, -50%) scale(1.5)";
+});
+
+window.addEventListener("mouseup", () => {
+  cursor.style.transform = "translate(-50%, -50%) scale(1)";
+});
+
+// ======================
+// SMOOTH SCROLLING
+// ======================
+
+gsap.registerPlugin(ScrollToPlugin);
+
+let target = window.scrollY;
+
+window.addEventListener(
+  "wheel",
+  (e) => {
+    e.preventDefault(); // prevent default jump
+    target += e.deltaY; // update desired scroll position
+
+    // limit scroll between top and bottom
+    target = Math.max(
+      0,
+      Math.min(target, document.body.scrollHeight - window.innerHeight),
+    );
+
+    gsap.to(window, {
+      duration: 3, // smooth scroll speed
+      scrollTo: target,
+      ease: "power3.out",
+      overwrite: "auto", // prevents queueing too many animations
+    });
+  },
+  { passive: false },
+);
+
+// ======================
+// RADIAL BOUNCY WHEEL PROGRESS INDICATOR
+// ======================
+
+// Create wheel container
+const wheelContainer = document.createElement("div");
+wheelContainer.className = "progress-wheel-container";
+
+// Create SVG wheel
+const wheelSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+wheelSVG.setAttribute("class", "progress-wheel");
+wheelSVG.setAttribute("viewBox", "0 0 150 150");
+
+// Define gradient
+const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+const gradient = document.createElementNS(
+  "http://www.w3.org/2000/svg",
+  "linearGradient",
+);
+gradient.setAttribute("id", "wheelGradient");
+gradient.setAttribute("x1", "0%");
+gradient.setAttribute("y1", "0%");
+gradient.setAttribute("x2", "0%");
+gradient.setAttribute("y2", "100%");
+
+const stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+stop1.setAttribute("offset", "0%");
+stop1.setAttribute("style", "stop-color:rgb(255,140,0);stop-opacity:0.8");
+
+const stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+stop2.setAttribute("offset", "100%");
+stop2.setAttribute("style", "stop-color:rgb(255,0,102);stop-opacity:1");
+
+gradient.appendChild(stop1);
+gradient.appendChild(stop2);
+defs.appendChild(gradient);
+wheelSVG.appendChild(defs);
+
+// Create background circle
+const bgCircle = document.createElementNS(
+  "http://www.w3.org/2000/svg",
+  "circle",
+);
+bgCircle.setAttribute("class", "wheel-bg");
+bgCircle.setAttribute("cx", "75");
+bgCircle.setAttribute("cy", "75");
+bgCircle.setAttribute("r", "70");
+wheelSVG.appendChild(bgCircle);
+
+// Create track circle
+const trackCircle = document.createElementNS(
+  "http://www.w3.org/2000/svg",
+  "circle",
+);
+trackCircle.setAttribute("class", "wheel-track");
+trackCircle.setAttribute("cx", "75");
+trackCircle.setAttribute("cy", "75");
+trackCircle.setAttribute("r", "70");
+wheelSVG.appendChild(trackCircle);
+
+// Create progress circle
+const progressCircle = document.createElementNS(
+  "http://www.w3.org/2000/svg",
+  "circle",
+);
+progressCircle.setAttribute("class", "wheel-progress");
+progressCircle.setAttribute("cx", "75");
+progressCircle.setAttribute("cy", "75");
+progressCircle.setAttribute("r", "70");
+
+const circumference = 2 * Math.PI * 70;
+progressCircle.style.strokeDasharray = circumference;
+progressCircle.style.strokeDashoffset = circumference;
+
+wheelSVG.appendChild(progressCircle);
+wheelContainer.appendChild(wheelSVG);
+
+// Create center dot
+const centerDot = document.createElement("div");
+centerDot.className = "wheel-center";
+wheelContainer.appendChild(centerDot);
+
+// Section data (including Contact)
+const sections = [
+  { id: "hero", name: "Home", number: "" },
+  { id: "about", name: "About", number: "" },
+  { id: "projects", name: "Work", number: "" },
+  { id: "contact", name: "Contact", number: "" },
+];
+
+// Create section labels container
+const labelsContainer = document.createElement("div");
+labelsContainer.className = "section-labels";
+
+// Create radial labels
+sections.forEach((section, index) => {
+  const label = document.createElement("div");
+  label.className = "section-label";
+  label.setAttribute("data-section", section.id);
+
+  // Set rotation angle
+  const angle = -60 + index * 60; // Distribute evenly: -60, 0, 60, 120
+  label.style.setProperty("--angle", `${angle}deg`);
+
+  const content = document.createElement("div");
+  content.className = "label-content";
+  content.style.setProperty("--rotation", `${-angle}deg`);
+
+  const text = document.createElement("div");
+  text.className = "label-text";
+  text.textContent = section.name;
+
+  const number = document.createElement("div");
+  number.className = "label-number";
+  number.textContent = section.number;
+
+  content.appendChild(text);
+  content.appendChild(number);
+  label.appendChild(content);
+  labelsContainer.appendChild(label);
+});
+
+wheelContainer.appendChild(labelsContainer);
+document.body.appendChild(wheelContainer);
+
+// Track current active section
+let activeIndex = -1;
+
+// Update wheel on scroll
+function updateRadialWheel() {
+  // Determine current section
+  const windowHeight = window.innerHeight;
+  const labels = labelsContainer.querySelectorAll(".section-label");
+
+  let newActiveIndex = -1;
+
+  sections.forEach((section, index) => {
+    const sectionElement = document.getElementById(section.id);
+
+    if (sectionElement) {
+      const rect = sectionElement.getBoundingClientRect();
+      const sectionMiddle = rect.top + rect.height / 2;
+
+      // Section is in the middle of viewport
+      if (
+        sectionMiddle >= windowHeight * 0.2 &&
+        sectionMiddle <= windowHeight * 0.8
+      ) {
+        newActiveIndex = index;
+      }
+    }
+  });
+
+  // Update active state with bounce animation
+  if (newActiveIndex !== activeIndex) {
+    // Remove active from all
+    labels.forEach((label) => label.classList.remove("active"));
+
+    // Add active to current
+    if (newActiveIndex >= 0) {
+      labels[newActiveIndex].classList.add("active");
+    }
+
+    activeIndex = newActiveIndex;
+  }
+}
+
+// Initial update
+updateRadialWheel();
+
+// Update on scroll
+let wheelTicking = false;
+window.addEventListener("scroll", () => {
+  if (!wheelTicking) {
+    window.requestAnimationFrame(() => {
+      updateRadialWheel();
+      wheelTicking = false;
+    });
+    wheelTicking = true;
+  }
+});
+
+// Entrance animation
+gsap.from(wheelContainer, {
+  x: 150,
+  opacity: 0,
+  duration: 1.2,
+  ease: "power3.out",
+  delay: 2,
+});
+
+gsap.from(".section-label", {
+  scale: 0,
+  opacity: 0,
+  duration: 0.6,
+  stagger: 0.1,
+  ease: "back.out(2)",
+  delay: 2.5,
+});
+
+console.log("🎨 Radial Bouncy Wheel Progress Indicator Loaded");

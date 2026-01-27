@@ -1,5 +1,6 @@
 .projects {
   @include section-base;
+  scroll-snap-align: start;
 
   .projects-wrapper {
     position: relative;
@@ -77,7 +78,6 @@
             object-fit: cover;
             transition: all 1s ease-in-out;
             filter: grayscale(100%) brightness(0.5);
-            border-radius: 0.5rem;
           }
 
           .card__head {

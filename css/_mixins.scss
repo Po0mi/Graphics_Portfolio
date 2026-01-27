@@ -20,6 +20,19 @@
   width: 100vw;
   overflow: hidden;
 }
+@mixin contact-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  justify-items: center;
+  align-items: center;
+  position: relative;
+  height: 70vh;
+  width: 100vw;
+  overflow: hidden;
+}
 
 @mixin grunge-overlay {
   position: absolute;

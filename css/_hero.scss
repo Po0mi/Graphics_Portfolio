@@ -1,5 +1,6 @@
 .hero {
   @include section-base;
+  scroll-snap-align: start;
 
   .hero-wrapper {
     position: relative;
@@ -100,7 +101,7 @@
 
   .scroll-text {
     font-family: "Barrio", system-ui;
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: $nav-text;
     letter-spacing: 0.2em;
     writing-mode: vertical-rl;

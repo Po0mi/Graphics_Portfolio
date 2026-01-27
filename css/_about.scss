@@ -1,5 +1,6 @@
 .about {
   @include section-base;
+  scroll-snap-align: start;
 
   .about-wrapper {
     .grunge-overlay {

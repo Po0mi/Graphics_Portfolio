@@ -1,3 +1,7 @@
+* {
+  cursor: none !important;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -8,8 +12,242 @@ body {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+body .cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 5rem; /* adjust size */
+  height: 5rem;
+  pointer-events: none; /* so it doesn't block clicks */
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease;
+  z-index: 1000;
+}
+body .cursor .cursor.hovering {
+  transform: translate(-50%, -50%) scale(1.5);
+  filter: brightness(1.5);
+}
+body .cursor a,
+body .cursor button {
+  cursor: pointer; /* normal cursor for accessibility */
 }
 
+/* ===================================
+   RADIAL BOUNCY WHEEL PROGRESS INDICATOR
+   =================================== */
+.progress-wheel-container {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 0;
+  pointer-events: none;
+  width: 150px;
+  height: 300px;
+  overflow: visible;
+}
+
+.progress-wheel {
+  position: absolute;
+  right: -75px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 150px;
+  height: 150px;
+}
+
+.wheel-bg {
+  fill: none;
+  opacity: 0;
+}
+
+.wheel-track {
+  display: none;
+}
+
+.wheel-progress {
+  display: none;
+}
+
+.section-labels {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  transform: translate(-50%, -50%);
+}
+
+.section-label {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+.section-label .label-content {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%) translateX(20px) scale(0.8);
+  background: rgba(20, 20, 20, 0.95);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  border: 2px solid rgba(255, 0, 102, 0.3);
+  white-space: nowrap;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+.section-label .label-content .label-text {
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-family: "Barrio", system-ui;
+}
+.section-label.active .label-content {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0) scale(1);
+  animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  border-color: rgba(255, 0, 102, 0.8);
+  box-shadow: 0 4px 30px rgba(255, 0, 102, 0.4);
+}
+.section-label.active .label-content .label-text {
+  color: rgb(255, 140, 0);
+  text-shadow: 0 0 10px rgba(255, 0, 102, 0.3);
+}
+
+.section-label:nth-child(1) {
+  transform: rotate(-60deg) translateX(75px);
+}
+.section-label:nth-child(1) .label-content {
+  transform: translateY(-50%) translateX(20px) scale(0.8) rotate(60deg);
+}
+.section-label:nth-child(1).active .label-content {
+  transform: translateY(-50%) translateX(0) scale(1) rotate(60deg);
+}
+
+.section-label:nth-child(2) {
+  transform: rotate(0deg) translateX(75px);
+}
+.section-label:nth-child(2) .label-content {
+  transform: translateY(-50%) translateX(20px) scale(0.8) rotate(0deg);
+}
+.section-label:nth-child(2).active .label-content {
+  transform: translateY(-50%) translateX(0) scale(1) rotate(0deg);
+}
+
+.section-label:nth-child(3) {
+  transform: rotate(60deg) translateX(75px);
+}
+.section-label:nth-child(3) .label-content {
+  transform: translateY(-50%) translateX(20px) scale(0.8) rotate(-60deg);
+}
+.section-label:nth-child(3).active .label-content {
+  transform: translateY(-50%) translateX(0) scale(1) rotate(-60deg);
+}
+
+.section-label:nth-child(4) {
+  transform: rotate(120deg) translateX(75px);
+}
+.section-label:nth-child(4) .label-content {
+  transform: translateY(-50%) translateX(20px) scale(0.8) rotate(-120deg);
+}
+.section-label:nth-child(4).active .label-content {
+  transform: translateY(-50%) translateX(0) scale(1) rotate(-120deg);
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: translateY(-50%) translateX(20px) scale(0.8) rotate(var(--rotation, 0deg));
+  }
+  50% {
+    transform: translateY(-50%) translateX(-5px) scale(1.1) rotate(var(--rotation, 0deg));
+  }
+  100% {
+    transform: translateY(-50%) translateX(0) scale(1) rotate(var(--rotation, 0deg));
+  }
+}
+@keyframes numberPulse {
+  0%, 100% {
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    transform: translateY(-50%) scale(1.15);
+  }
+}
+.wheel-center {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .progress-wheel-container {
+    width: 120px;
+    height: 240px;
+  }
+  .progress-wheel {
+    right: -60px;
+    width: 120px;
+    height: 120px;
+  }
+  .section-labels {
+    width: 120px;
+    height: 120px;
+  }
+  .section-label:nth-child(1),
+  .section-label:nth-child(2),
+  .section-label:nth-child(3),
+  .section-label:nth-child(4) {
+    transform: rotate(var(--angle)) translateX(60px);
+  }
+  .section-label .label-content {
+    padding: 0.5rem 1rem;
+  }
+  .section-label .label-content .label-text {
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 768px) {
+  .progress-wheel-container {
+    width: 100px;
+    height: 200px;
+  }
+  .progress-wheel {
+    right: -50px;
+    width: 100px;
+    height: 100px;
+  }
+  .section-labels {
+    width: 100px;
+    height: 100px;
+  }
+  .section-label:nth-child(1),
+  .section-label:nth-child(2),
+  .section-label:nth-child(3),
+  .section-label:nth-child(4) {
+    transform: rotate(var(--angle)) translateX(50px);
+  }
+  .section-label .label-content {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+  }
+  .section-label .label-content .label-text {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+  }
+  .section-label .label-content .label-number {
+    width: 20px;
+    height: 20px;
+    font-size: 0.6rem;
+  }
+}
 .header {
   position: fixed;
   width: 100vw;
@@ -161,6 +399,7 @@ body {
   justify-content: center;
   position: relative;
   z-index: 0;
+  scroll-snap-align: start;
 }
 .hero .hero-wrapper {
   position: relative;
@@ -261,7 +500,7 @@ body {
 }
 .scroll-indicator .scroll-text {
   font-family: "Barrio", system-ui;
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: #f3d7d7;
   letter-spacing: 0.2em;
   writing-mode: vertical-rl;
@@ -383,6 +622,7 @@ body {
   justify-content: center;
   position: relative;
   z-index: 0;
+  scroll-snap-align: start;
 }
 .about .about-wrapper .grunge-overlay {
   position: absolute;
@@ -694,6 +934,7 @@ body {
   justify-content: center;
   position: relative;
   z-index: 0;
+  scroll-snap-align: start;
 }
 .projects .projects-wrapper {
   position: relative;
@@ -777,7 +1018,6 @@ body {
      object-fit: cover;
   transition: all 1s ease-in-out;
   filter: grayscale(100%) brightness(0.5);
-  border-radius: 0.5rem;
 }
 .projects .projects-wrapper .projects-container .projects-gallery .card .card__head {
   color: #f0fff1;
@@ -912,5 +1152,73 @@ body {
   }
   .projects .projects-wrapper .projects-container .projects-gallery .card:hover .card__head {
     font-size: 1em;
+  }
+}
+.contact {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  scroll-snap-align: start;
+  z-index: 0;
+}
+.contact .contact-wrapper .grunge-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url(/assets/grunge-overlay.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  mix-blend-mode: multiply;
+  z-index: 10;
+  pointer-events: none;
+}
+.contact .contact-wrapper .contact-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  justify-items: center;
+  align-items: center;
+  position: relative;
+  height: 70vh;
+  width: 100vw;
+  overflow: hidden;
+  margin-top: 3rem;
+}
+.contact .contact-wrapper .contact-container h1 {
+  font-size: clamp(5rem, 5vw, 5rem);
+  grid-area: 3/1/4/8;
+  color: #ff9e00;
+  font-family: "Barrio", system-ui;
+}
+.contact .contact-wrapper .contact-container .marquee {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  height: 5rem;
+  grid-area: 1/1/2/8;
+}
+.contact .contact-wrapper .contact-container .marquee-content {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 10s linear infinite;
+}
+.contact .contact-wrapper .contact-container .marquee-content span {
+  font-size: clamp(5rem, 5vw, 5rem);
+  font-weight: bold;
+  color: #f0fff1;
+  font-family: "Barrio", system-ui;
+}
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }/*# sourceMappingURL=main.css.map */
