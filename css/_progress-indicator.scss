@@ -1,243 +1,194 @@
-/* ===================================
-   RADIAL BOUNCY WHEEL PROGRESS INDICATOR
-   =================================== */
+// ======================
+// SCROLL PROGRESS INDICATOR
+// ======================
 
-.progress-wheel-container {
+.scroll-progress {
   position: fixed;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 0;
-  pointer-events: none;
-  width: 150px;
-  height: 300px;
-  overflow: visible;
-}
-
-.progress-wheel {
-  position: absolute;
-  right: -75px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 150px;
-  height: 150px;
-}
-
-// Hidden wheel - only for positioning
-.wheel-bg {
-  fill: none;
-  opacity: 0;
-}
-
-.wheel-track {
-  display: none;
-}
-
-.wheel-progress {
-  display: none;
-}
-
-// Radial section labels container
-.section-labels {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 150px;
-  height: 150px;
-  transform: translate(-50%, -50%);
-}
-
-// Individual section label
-.section-label {
-  position: absolute;
-  top: 50%;
-  left: 40%;
-  transform-origin: 0 0;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  z-index: 99;
   pointer-events: none;
 
-  .label-content {
+  // Progress bar
+  &__bar {
     position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%) translateX(20px) scale(0.8);
-    background: rgba(20, 20, 20, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 0.6rem 1.2rem;
-    border-radius: 25px;
-    border: 2px solid rgba(255, 0, 102, 0.3);
-    white-space: nowrap;
-    opacity: 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(
+      90deg,
+      #ff006e,
+      #ff6b35,
+      #ffbe0b,
+      #8338ec,
+      #3a86ff,
+      #06ffa5,
+      #ff006e
+    );
+    background-size: 200% 100%;
+    animation: gradient-shift 3s linear infinite;
+    box-shadow:
+      0 0 30px rgba(255, 0, 110, 0.8),
+      0 0 60px rgba(255, 107, 53, 0.6),
+      0 0 90px rgba(255, 190, 11, 0.4),
+      0 -4px 20px rgba(131, 56, 236, 0.5);
 
-    .label-text {
-      font-size: 2rem;
-      font-weight: 700;
-      color: rgba(255, 255, 255, 0.7);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-family: "Barrio", system-ui;
+    // Shimmer effect overlay
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.6),
+        transparent
+      );
+      animation: shimmer 2s infinite;
     }
   }
 
-  // Active state - bouncy popup
-  &.active .label-content {
-    opacity: 1;
-    transform: translateY(-50%) translateX(0) scale(1);
-    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    border-color: rgba(255, 0, 102, 0.8);
-    box-shadow: 0 4px 30px rgba(255, 0, 102, 0.4);
+  // Percentage indicator
+  &__percentage {
+    position: fixed;
+    bottom: 50px;
+    left: 50px;
+    font-family: "Barrio", cursive;
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow:
+      3px 3px 0 #ff006e,
+      -3px -3px 0 #3a86ff,
+      3px -3px 0 #ffbe0b,
+      -3px 3px 0 #8338ec;
+    z-index: 98;
+    pointer-events: none;
 
-    .label-text {
-      color: rgba(255, 140, 0, 1);
-      text-shadow: 0 0 10px rgba(255, 0, 102, 0.3);
+    // Background circle
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 50%;
+      border: 4px solid #ff006e;
+      z-index: -1;
+      animation: pulse-border 2s ease-in-out infinite;
     }
   }
 }
 
-// Position labels radially around the wheel
-.section-label:nth-child(1) {
-  transform: rotate(-60deg) translateX(75px);
-  .label-content {
-    transform: translateY(-50%) translateX(20px) scale(0.8) rotate(60deg);
-  }
-  &.active .label-content {
-    transform: translateY(-50%) translateX(0) scale(1) rotate(60deg);
-  }
-}
-
-.section-label:nth-child(2) {
-  transform: rotate(0deg) translateX(75px);
-  .label-content {
-    transform: translateY(-50%) translateX(20px) scale(0.8) rotate(0deg);
-  }
-  &.active .label-content {
-    transform: translateY(-50%) translateX(0) scale(1) rotate(0deg);
-  }
-}
-
-.section-label:nth-child(3) {
-  transform: rotate(60deg) translateX(75px);
-  .label-content {
-    transform: translateY(-50%) translateX(20px) scale(0.8) rotate(-60deg);
-  }
-  &.active .label-content {
-    transform: translateY(-50%) translateX(0) scale(1) rotate(-60deg);
-  }
-}
-
-.section-label:nth-child(4) {
-  transform: rotate(120deg) translateX(75px);
-  .label-content {
-    transform: translateY(-50%) translateX(20px) scale(0.8) rotate(-120deg);
-  }
-  &.active .label-content {
-    transform: translateY(-50%) translateX(0) scale(1) rotate(-120deg);
-  }
-}
-
-@keyframes bounceIn {
+// Animations
+@keyframes gradient-shift {
   0% {
-    transform: translateY(-50%) translateX(20px) scale(0.8)
-      rotate(var(--rotation, 0deg));
-  }
-  50% {
-    transform: translateY(-50%) translateX(-5px) scale(1.1)
-      rotate(var(--rotation, 0deg));
+    background-position: 0% 50%;
   }
   100% {
-    transform: translateY(-50%) translateX(0) scale(1)
-      rotate(var(--rotation, 0deg));
+    background-position: 200% 50%;
   }
 }
 
-@keyframes numberPulse {
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+@keyframes pulse-border {
   0%,
   100% {
-    transform: translateY(-50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
   }
   50% {
-    transform: translateY(-50%) scale(1.15);
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.8;
   }
 }
 
-// Center indicator dot - hidden
-.wheel-center {
-  display: none;
-}
-
-// Tablet
-@media (max-width: 1024px) {
-  .progress-wheel-container {
-    width: 120px;
-    height: 240px;
-  }
-
-  .progress-wheel {
-    right: -60px;
-    width: 120px;
-    height: 120px;
-  }
-
-  .section-labels {
-    width: 120px;
-    height: 120px;
-  }
-
-  .section-label:nth-child(1),
-  .section-label:nth-child(2),
-  .section-label:nth-child(3),
-  .section-label:nth-child(4) {
-    transform: rotate(var(--angle)) translateX(60px);
-  }
-
-  .section-label .label-content {
-    padding: 0.5rem 1rem;
-
-    .label-text {
-      font-size: 0.8rem;
-    }
-  }
-}
-
-// Mobile
+// Responsive adjustments
 @media (max-width: 768px) {
-  .progress-wheel-container {
-    width: 100px;
-    height: 200px;
-  }
+  .scroll-progress {
+    height: 12px;
 
-  .progress-wheel {
-    right: -50px;
-    width: 100px;
-    height: 100px;
-  }
+    &__percentage {
+      bottom: 20px;
+      left: 20px;
+      font-size: 20px;
 
-  .section-labels {
-    width: 100px;
-    height: 100px;
-  }
-
-  .section-label:nth-child(1),
-  .section-label:nth-child(2),
-  .section-label:nth-child(3),
-  .section-label:nth-child(4) {
-    transform: rotate(var(--angle)) translateX(50px);
-  }
-
-  .section-label .label-content {
-    padding: 0.4rem 0.8rem;
-    border-radius: 20px;
-
-    .label-text {
-      font-size: 0.7rem;
-      letter-spacing: 1px;
+      &::before {
+        width: 65px;
+        height: 65px;
+        border-width: 3px;
+      }
     }
+  }
+}
 
-    .label-number {
-      width: 20px;
-      height: 20px;
-      font-size: 0.6rem;
-    }
+// Alternative: Side Progress Bar (Vertical)
+.scroll-progress-vertical {
+  position: fixed;
+  top: 0;
+  right: 20px;
+  width: 6px;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 100px;
+  }
+
+  &__bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(
+      180deg,
+      #06ffa5,
+      #3a86ff,
+      #8338ec,
+      #ffbe0b,
+      #ff6b35,
+      #ff006e
+    );
+    background-size: 100% 200%;
+    animation: gradient-shift-vertical 3s linear infinite;
+    border-radius: 100px;
+    box-shadow:
+      0 0 20px rgba(255, 0, 110, 0.6),
+      0 0 40px rgba(255, 107, 53, 0.4);
+  }
+}
+
+@keyframes gradient-shift-vertical {
+  0% {
+    background-position: 50% 0%;
+  }
+  100% {
+    background-position: 50% 200%;
   }
 }

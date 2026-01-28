@@ -18,8 +18,8 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 5rem; /* adjust size */
-    height: 5rem;
+    width: 4rem; /* adjust size */
+    height: 4rem;
     pointer-events: none; /* so it doesn't block clicks */
     transform: translate(-50%, -50%);
     transition: transform 0.15s ease;
